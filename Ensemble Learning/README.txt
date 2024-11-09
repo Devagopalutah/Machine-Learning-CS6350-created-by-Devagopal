@@ -12,7 +12,3 @@
 ├── Perceptron/
 │   ├── Perceptron.py
 │   ├── Perceptron.sh
-│   ├── bank-note/
-│   │   ├── train.csv
-│   │   ├── test.csv
-│   │   ├── data-desc.txt
