@@ -3,7 +3,7 @@ import pandas as pd
 import os
 from collections import Counter
 
-# Set up data paths
+
 base_dir = os.path.dirname(os.path.abspath(__file__))
 train_file = os.path.join(base_dir, 'bank-note', 'train.csv')
 data_txt = os.path.join(base_dir, 'bank-note', 'data-desc.txt')
@@ -42,7 +42,7 @@ def load_and_preprocess_data():
     return X_train, y_train, X_test, y_test
 
 class Perceptron:
-    """Base class for all Perceptron variants"""
+    
     def __init__(self, max_epochs=10):
         self.max_epochs = max_epochs
 
@@ -172,7 +172,7 @@ if __name__ == "__main__":
                 print(f"bias: {bias:.6f}")
                 print(f"count: {count}")
             print(f"\nNumber of weight vectors: {len(perceptron.weights_list)}")
-        else:  # Average
+        else:  
             print("\nLearned average weight vector:")
             for i, w in enumerate(perceptron.avg_weights):
                 print(f"w{i+1}: {w:.6f}")
