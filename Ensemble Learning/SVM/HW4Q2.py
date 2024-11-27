@@ -153,13 +153,13 @@ class KernelPerceptron:
         return np.mean(self.predict(X) == y)
 
 def load_data():
-    # Load training data
+    
     train_data = np.loadtxt(train_file, delimiter=',')
     X_train = train_data[:, :-1]
     y_train = train_data[:, -1]
     y_train = 2 * y_train - 1  
     
-    # Load test data
+   
     test_data = np.loadtxt(test_file, delimiter=',')
     X_test = test_data[:, :-1]
     y_test = test_data[:, -1]
