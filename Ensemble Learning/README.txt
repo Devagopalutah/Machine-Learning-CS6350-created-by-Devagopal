@@ -12,3 +12,8 @@
 ├── Perceptron/
 │   ├── Perceptron.py
 │   ├── Perceptron.sh
+├── SVM/
+    ├── HW4Q1.py  
+    ├── HW4Q2.py  
+    ├── HW4Q1.sh
+    ├── HW4Q2.sh
