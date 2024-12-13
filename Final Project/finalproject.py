@@ -74,7 +74,7 @@ class CustomSVM:
                     self.weights -= self.learning_rate * (2 * self.lambda_param * self.weights - np.dot(xi, y[idx]))
                     self.bias -= self.learning_rate * y[idx]
             
-            # Calculate loss for monitoring
+            
             output = np.dot(X, self.weights) + self.bias
             loss = np.mean(self._hinge_loss(y, output))
             self.losses.append(loss)
@@ -119,18 +119,18 @@ class CustomNeuralNetwork:
         m = X.shape[0]
         deltas = []
         
-        # Output layer error
+        
         delta = activations[-1] - y.reshape(-1, 1)
         deltas.append(delta)
         
-        # Hidden layers error
+        
         for i in range(len(self.weights) - 1, 0, -1):
             delta = np.dot(deltas[-1], self.weights[i].T) * self._sigmoid_derivative(activations[i])
             deltas.append(delta)
         
         deltas.reverse()
         
-        # Update weights and biases
+        
         for i in range(len(self.weights)):
             self.weights[i] -= self.learning_rate * np.dot(activations[i].T, deltas[i]) / m
             self.biases[i] -= self.learning_rate * np.sum(deltas[i], axis=0, keepdims=True) / m
@@ -210,7 +210,7 @@ def train_and_evaluate_model(model, X_train, X_test, y_train, y_test, feature_na
     print("\nClassification Report:")
     print(classification_report(y_test, y_pred))
     
-    # Plot confusion matrix
+   
     plt.figure(figsize=(8, 6))
     cm = confusion_matrix(y_test, y_pred)
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
@@ -219,7 +219,7 @@ def train_and_evaluate_model(model, X_train, X_test, y_train, y_test, feature_na
     plt.xlabel('Predicted Label')
     plt.show()
     
-    # Plot training progress
+    
     plt.figure(figsize=(10, 5))
     if hasattr(model, 'errors_'):
         plt.plot(model.errors_, label='Errors')
@@ -233,7 +233,7 @@ def train_and_evaluate_model(model, X_train, X_test, y_train, y_test, feature_na
     plt.grid(True)
     plt.show()
     
-    # Plot feature importance (for Perceptron and SVM)
+    
     if hasattr(model, 'weights') and len(model.weights.shape) == 1:
         plt.figure(figsize=(8, 4))
         importance = np.abs(model.weights)
@@ -257,9 +257,9 @@ def predict_idle_stations(model, df, feature_names, imputer, scaler):
     return df[predictions == 1]['station_id'].tolist()
 
 def main():
-    # Set up file path
+    
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    data_file = os.path.join(base_dir, 'data.csv')
+    data_file = os.path.join(base_dir, 'july.csv'')
     
     df = load_and_validate_csv(data_file)
     
@@ -278,7 +278,7 @@ def main():
             X_train = scaler.fit_transform(imputer.fit_transform(X_train))
             X_test = scaler.transform(imputer.transform(X_test))
             
-            # Initialize models
+            
             perceptron = CustomPerceptron(learning_rate=0.01, max_iter=1000)
             svm = CustomSVM(learning_rate=0.001, lambda_param=0.01, max_iter=1000)
             nn = CustomNeuralNetwork(layer_sizes=[X_train.shape[1], 10, 5, 1], learning_rate=0.01, max_iter=1000)
@@ -291,14 +291,14 @@ def main():
             
             trained_models = {}
             
-            # Train and evaluate each model
+            
             for model, name in models:
                 trained_model = train_and_evaluate_model(
                     model, X_train, X_test, y_train, y_test, available_columns, name
                 )
                 trained_models[name] = trained_model
             
-            # Make predictions using each model
+            
             print("\nTime-based Predictions:")
             for period in ['Morning', 'Afternoon', 'Evening', 'Night']:
                 print(f"\n{period}:")
