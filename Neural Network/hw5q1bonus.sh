@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 hw5lastqn.py
+python3 hw5q1bonus.py
